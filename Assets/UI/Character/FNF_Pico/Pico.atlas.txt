@@ -1,0 +1,104 @@
+
+Pico.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+armL
+  rotate: true
+  xy: 829, 39
+  size: 190, 174
+  orig: 190, 174
+  offset: 0, 0
+  index: -1
+armR1
+  rotate: true
+  xy: 847, 265
+  size: 209, 144
+  orig: 209, 144
+  offset: 0, 0
+  index: -1
+eyes1
+  rotate: true
+  xy: 654, 29
+  size: 191, 173
+  orig: 191, 173
+  offset: 0, 0
+  index: -1
+eyes2
+  rotate: true
+  xy: 2, 2
+  size: 166, 185
+  orig: 166, 185
+  offset: 0, 0
+  index: -1
+eyes3
+  rotate: false
+  xy: 189, 17
+  size: 224, 151
+  orig: 224, 151
+  offset: 0, 0
+  index: -1
+eyes4
+  rotate: true
+  xy: 674, 231
+  size: 223, 171
+  orig: 223, 171
+  offset: 0, 0
+  index: -1
+hair
+  rotate: true
+  xy: 717, 476
+  size: 265, 226
+  orig: 265, 226
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 427, 222
+  size: 245, 232
+  orig: 245, 232
+  offset: 0, 0
+  index: -1
+handR1
+  rotate: true
+  xy: 518, 743
+  size: 279, 429
+  orig: 279, 429
+  offset: 0, 0
+  index: -1
+handR2
+  rotate: false
+  xy: 400, 456
+  size: 315, 285
+  orig: 315, 285
+  offset: 0, 0
+  index: -1
+handR3
+  rotate: false
+  xy: 2, 170
+  size: 423, 215
+  orig: 423, 215
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 387
+  size: 396, 367
+  orig: 396, 367
+  offset: 0, 0
+  index: -1
+leg
+  rotate: false
+  xy: 2, 756
+  size: 514, 266
+  orig: 514, 266
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 427, 22
+  size: 225, 198
+  orig: 225, 198
+  offset: 0, 0
+  index: -1

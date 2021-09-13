@@ -1,0 +1,83 @@
+
+Man.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: false
+  xy: 687, 34
+  size: 157, 240
+  orig: 157, 240
+  offset: 0, 0
+  index: -1
+arm_01
+  rotate: false
+  xy: 463, 864
+  size: 221, 137
+  orig: 221, 137
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 414
+  size: 459, 587
+  orig: 459, 587
+  offset: 0, 0
+  index: -1
+hair_01
+  rotate: false
+  xy: 402, 94
+  size: 283, 318
+  orig: 283, 318
+  offset: 0, 0
+  index: -1
+hand
+  rotate: true
+  xy: 846, 82
+  size: 192, 155
+  orig: 192, 155
+  offset: 0, 0
+  index: -1
+hand_02
+  rotate: true
+  xy: 463, 735
+  size: 127, 220
+  orig: 127, 220
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 463, 457
+  size: 242, 276
+  orig: 242, 276
+  offset: 0, 0
+  index: -1
+head_02
+  rotate: true
+  xy: 687, 765
+  size: 236, 291
+  orig: 236, 291
+  offset: 0, 0
+  index: -1
+head_03
+  rotate: true
+  xy: 707, 525
+  size: 238, 274
+  orig: 238, 274
+  offset: 0, 0
+  index: -1
+head_04
+  rotate: true
+  xy: 707, 276
+  size: 247, 259
+  orig: 247, 259
+  offset: 0, 0
+  index: -1
+leg
+  rotate: true
+  xy: 2, 8
+  size: 404, 398
+  orig: 404, 398
+  offset: 0, 0
+  index: -1

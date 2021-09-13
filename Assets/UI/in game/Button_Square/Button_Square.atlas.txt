@@ -1,0 +1,55 @@
+
+Button_Square.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Button_Blue
+  rotate: true
+  xy: 2, 190
+  size: 185, 188
+  orig: 197, 200
+  offset: 6, 6
+  index: -1
+Button_Green
+  rotate: true
+  xy: 192, 189
+  size: 185, 188
+  orig: 197, 200
+  offset: 6, 6
+  index: -1
+Button_Red
+  rotate: true
+  xy: 2, 3
+  size: 185, 188
+  orig: 200, 200
+  offset: 9, 6
+  index: -1
+Button_White
+  rotate: true
+  xy: 2, 410
+  size: 87, 91
+  orig: 87, 91
+  offset: 0, 0
+  index: -1
+Button_Yellow
+  rotate: true
+  xy: 192, 2
+  size: 185, 188
+  orig: 197, 200
+  offset: 6, 6
+  index: -1
+Square
+  rotate: true
+  xy: 254, 376
+  size: 121, 157
+  orig: 157, 157
+  offset: 18, 0
+  index: -1
+Square2
+  rotate: true
+  xy: 95, 377
+  size: 120, 157
+  orig: 120, 157
+  offset: 0, 0
+  index: -1

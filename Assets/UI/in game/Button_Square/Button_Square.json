@@ -1,0 +1,338 @@
+{
+"skeleton": {
+	"hash": "bAaN6kz9yHnOdWBu55DQ0zlKc5U",
+	"spine": "3.8.99",
+	"x": -125.91,
+	"y": -126.66,
+	"width": 252.9,
+	"height": 256.5,
+	"images": "./images/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root", "color": "ff0000ff" },
+	{ "name": "Button", "parent": "root", "x": 0.24, "y": -130.17 },
+	{ "name": "Square", "parent": "Button", "x": -1.78, "y": 127.69 },
+	{ "name": "Button2", "parent": "Button", "rotation": 90, "x": -0.49, "y": 137.75 }
+],
+"slots": [
+	{ "name": "Square", "bone": "Square", "attachment": "Square" },
+	{ "name": "Square2", "bone": "Square" },
+	{ "name": "Button", "bone": "Button2", "attachment": "Button", "blend": "additive" },
+	{ "name": "Button_White", "bone": "Button2" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Square": {
+				"Square": { "x": 2.16, "y": -9.06, "width": 224, "height": 224 }
+			},
+			"Square2": {
+				"Square2": { "x": 2.06, "y": -7.05, "width": 171, "height": 224 }
+			}
+		}
+	},
+	{
+		"name": "Blue",
+		"attachments": {
+			"Button": {
+				"Button": {
+					"name": "Button_Blue",
+					"x": -5.99,
+					"y": -0.79,
+					"scaleX": 0.9,
+					"scaleY": 0.9,
+					"rotation": -90,
+					"width": 281,
+					"height": 285
+				}
+			},
+			"Button_White": {
+				"Button_White": {
+					"name": "Button_White4",
+					"path": "Button_White",
+					"x": -8.16,
+					"y": 0.14,
+					"rotation": 90,
+					"width": 124,
+					"height": 130
+				}
+			}
+		}
+	},
+	{
+		"name": "Green",
+		"attachments": {
+			"Button": {
+				"Button": {
+					"name": "Button_Green",
+					"x": -6.55,
+					"y": 0.07,
+					"scaleX": 0.9,
+					"scaleY": 0.9,
+					"rotation": 90,
+					"width": 281,
+					"height": 285
+				}
+			},
+			"Button_White": {
+				"Button_White": {
+					"name": "Button_White3",
+					"path": "Button_White",
+					"x": -8.16,
+					"y": 0.14,
+					"rotation": -90,
+					"width": 124,
+					"height": 130
+				}
+			}
+		}
+	},
+	{
+		"name": "Red",
+		"attachments": {
+			"Button": {
+				"Button": {
+					"name": "Button_Red",
+					"x": -6.14,
+					"y": -0.65,
+					"scaleX": 0.9,
+					"scaleY": 0.9,
+					"rotation": 180,
+					"width": 285,
+					"height": 285
+				}
+			},
+			"Button_White": {
+				"Button_White": { "name": "Button_White2", "path": "Button_White", "x": -8.16, "y": 0.14, "width": 124, "height": 130 }
+			}
+		}
+	},
+	{
+		"name": "Yellow",
+		"attachments": {
+			"Button": {
+				"Button": {
+					"name": "Button_Yellow",
+					"x": -9.92,
+					"y": -0.44,
+					"scaleX": 0.9,
+					"scaleY": 0.9,
+					"width": 281,
+					"height": 285
+				}
+			},
+			"Button_White": {
+				"Button_White": { "x": -8.16, "y": 0.14, "rotation": 180, "width": 124, "height": 130 }
+			}
+		}
+	}
+],
+"animations": {
+	"action": {
+		"slots": {
+			"Button": {
+				"attachment": [
+					{ "name": "Button" },
+					{ "time": 0.3333, "name": "Button" }
+				]
+			},
+			"Button_White": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": null }
+				]
+			},
+			"Square": {
+				"attachment": [
+					{ "name": "Square" },
+					{ "time": 0.3333, "name": "Square" }
+				]
+			},
+			"Square2": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Square": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.0667, "x": 1.344, "y": 1.068 },
+					{ "time": 0.1333, "x": 0.921, "y": 0.969 },
+					{ "time": 0.2, "x": 1.207, "y": 1.034 },
+					{ "time": 0.2667, "x": 0.958, "y": 0.976 },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Button2": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.0333, "x": -7.33, "y": -0.61 },
+					{ "time": 0.0667, "x": 3.67 },
+					{ "time": 0.1, "x": -7.33, "y": -0.61 },
+					{ "time": 0.1333, "x": 3.67 },
+					{ "time": 0.1667, "x": -7.33, "y": -0.61 },
+					{ "time": 0.2, "x": 3.67 },
+					{ "time": 0.2333, "x": -7.33, "y": -0.61 },
+					{ "time": 0.2667, "x": 3.67 },
+					{ "time": 0.3, "x": -7.33, "y": -0.61 },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Button": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		},
+		"drawOrder": [
+			{},
+			{ "time": 0.3333 }
+		]
+	},
+	"idle": {
+		"slots": {
+			"Button": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"Button_White": {
+				"attachment": [
+					{ "name": "Button_White" }
+				]
+			},
+			"Square": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"Square2": {
+				"attachment": [
+					{ "name": "Square2" }
+				]
+			}
+		},
+		"bones": {
+			"Square": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"Button2": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"root": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"Button": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			}
+		},
+		"drawOrder": [
+			{}
+		]
+	}
+}
+}

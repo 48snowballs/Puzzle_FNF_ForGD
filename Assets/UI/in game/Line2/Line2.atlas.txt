@@ -1,0 +1,34 @@
+
+Line2.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue
+  rotate: false
+  xy: 2, 244
+  size: 120, 240
+  orig: 120, 257
+  offset: 0, 9
+  index: -1
+green
+  rotate: false
+  xy: 2, 2
+  size: 120, 240
+  orig: 120, 257
+  offset: 0, 9
+  index: -1
+red
+  rotate: false
+  xy: 124, 244
+  size: 120, 240
+  orig: 120, 257
+  offset: 0, 9
+  index: -1
+yellow
+  rotate: false
+  xy: 124, 2
+  size: 120, 240
+  orig: 120, 257
+  offset: 0, 9
+  index: -1

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161e0e21b0177034284cb47b6ef72188, type: 3}
+  m_Name: List UI Panel
+  m_EditorClassIdentifier: 
+  Instances:
+  - {fileID: 5814341833658566310, guid: 00eef61b8f3098848bad5204e28206bd, type: 3}
+  - {fileID: 6239695152366162268, guid: b5a61c36ca379e54f92bd8a0b7f6120a, type: 3}
+  - {fileID: 3670280893178658481, guid: 0f2bc13400b9f5549bf496c6fd4ee210, type: 3}
+  - {fileID: 7553707533929780173, guid: bf0665dede9d57f42a21d0cf73da3b82, type: 3}
+  path: Assets/Prefabs/UI

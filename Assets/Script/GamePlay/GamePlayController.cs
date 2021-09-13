@@ -1,0 +1,276 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Spine.Unity;
+using UnityEngine.SceneManagement;
+
+public class GamePlayController : MonoBehaviour
+{
+    public Arrow prefab;
+    public GameObject groupTap;
+    public AnswerPool answerPool;
+    public IncorectNotificaion incorect;
+    public ObjectPerfect objStatePrefab;
+    [SerializeField] private SkeletonAnimation[] lsButton;
+
+    private bool enable;
+    private bool blockInput;
+    private int idxOfNode;
+    private int idxOfArrow;
+    private int idxOfAnswer;
+    private STATE currentState;
+    private int answerCount;
+    private ObjectPerfect textPerfect;
+    private Vector2[] posStart = new Vector2[] { new Vector2(-2.1f, 5f), new Vector2(-0.7f, 5f), new Vector2(0.7f, 5f), new Vector2(2.1f, 5f) };
+
+    private Level level;
+
+    //private List<Arrow> listArrow = new List<Arrow>();
+    private bool isSpawn = false;
+    private bool isOverTime = false;
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GUIManager.Instance.ReloadCamera();
+        MainScreen.Show();
+    }
+
+    private void OnEnable()
+    {
+        EvenGlobalManager.Instance.OnStartPlay.AddListener(OnStart);
+        EvenGlobalManager.Instance.OnEndPlay.AddListener(OnEnd);
+    }
+    public void OnStart()
+    {
+        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level);
+        currentState = STATE.ASK_STATE;
+        if (textPerfect == null)
+            textPerfect = SimplePool.Spawn(objStatePrefab, new Vector3(0, 3), Quaternion.identity, false);
+        textPerfect.gameObject.SetActive(false);
+        for (int i = 0; i < lsButton.Length; i++)
+            lsButton[i].AnimationState.SetAnimation(0, "idle", false);
+        AudioManager.Instance.PlayGame(GameManager.Instance.songManager.GetSongClip(level.song).clipSong,0);
+
+        enable = true;
+        blockInput = false;
+        idxOfNode = 0;
+        idxOfArrow = 0;
+        idxOfAnswer = 0;
+        answerCount = 0;
+}
+    // Update is called once per frame
+    void Update()
+    {
+        if (!blockInput)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                OnTouchDown(0);
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                OnTouchDown(1);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                OnTouchDown(2);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                OnTouchDown(3);
+
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
+                OnTouchUp();
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+                OnTouchUp();
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+                OnTouchUp();
+            if (Input.GetKeyUp(KeyCode.RightArrow))
+                OnTouchUp();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit.collider != null)
+                    OnTouchDown(int.Parse(hit.collider.name));
+                //MouseDown();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnTouchUp();
+                //MouseUp();
+            }
+        }
+
+        if (enable)
+        {
+            if (level.numOfNodes <= idxOfNode)
+            {
+                enable = false;
+                blockInput = true;
+                Invoke(nameof(OnWinGame),1f);
+                return;
+            }
+            if (currentState == STATE.ASK_STATE)
+            {
+                if (!isSpawn)
+                {
+                    StartCoroutine(SpawnArrow());
+                }
+            } else if (currentState == STATE.ANSWER_STATE)
+            {
+                if (PlayScreen.Instance.countdownTimer.IsOverTime() && !isOverTime)
+                {
+                    StartCoroutine(OverTime());
+                }
+                if (answerCount>2)
+                {
+                    textPerfect.Setup(2);
+                    PlayScreen.Instance.OnMiss();
+                    NextNode();
+                }
+            }
+        }
+    }
+
+    IEnumerator SpawnArrow()
+    {
+        isSpawn = true;
+        blockInput = true;
+        float delay = level.nodes[idxOfNode].time / level.nodes[idxOfNode].numOfNode;
+        yield return Yielders.Get(1);
+        while (idxOfArrow < level.nodes[idxOfNode].numOfNode)
+        {
+            int type = level.nodes[idxOfNode].arrows[idxOfArrow];
+            if (type > 3)
+                type = Random.Range(0, 4);
+            var obj = SimplePool.Spawn(prefab);
+            obj.transform.position = posStart[type];
+            obj.Init(type, level.speed);
+            //listArrow.Add(obj);
+            //if (lsEffectObjectMoveDown[type].AnimationName != "idle" || lsEffectObjectMoveDown[type].AnimationName != "in")
+            //{
+            //    lsEffectObjectMoveDown[type].AnimationState.SetAnimation(0, "in", false);
+            //    lsEffectObjectMoveDown[type].AnimationState.AddAnimation(0, "idle", true, 0);
+            //}
+            idxOfArrow++;
+            yield return new WaitForSeconds(delay);
+        }
+        // idxOfNode++;
+        yield return new WaitForSeconds(1.8f);
+        isSpawn = false;
+        blockInput = false;
+        currentState = STATE.ANSWER_STATE;
+        OnActiveTarget(true);
+        yield return 0;
+    }
+    void OnActiveTarget(bool isActive)
+    {
+        groupTap.SetActive(isActive);
+        answerPool.gameObject.SetActive(isActive);
+        //objTarget.SetActive(isActive);
+        //skeEffectScore.gameObject.SetActive(isActive);
+        if (isActive)
+        { 
+            answerPool.CreateNewPool(level.nodes[idxOfNode].numOfNode);
+            PlayScreen.Instance.ShowCountDown(10f);
+        }
+            //objTarget.transform.position = new Vector3(0, -3.5f);
+    }
+    void OnTouchDown(int type)
+    {
+        //objTut.SetActive(false);
+
+        lsButton[type].AnimationState.SetAnimation(0, "action", true);
+        //lsButton[typ].AnimationState.AddAnimation(0, "idle", false, 0);
+        PlayScreen.Instance.OnTapButtonDown(type);
+        // Context.selectedButton = type;
+
+        if (idxOfAnswer < level.nodes[idxOfNode].numOfNode)
+        {
+            answerPool.UpdateAnswer(type, idxOfAnswer);
+            if (type == level.nodes[idxOfNode].arrows[idxOfAnswer])
+            {
+                idxOfAnswer++;
+                if (idxOfAnswer == level.nodes[idxOfNode].numOfNode)
+                {
+                    if (answerCount == 0) textPerfect.Setup(0);
+                    else if (answerCount > 0 && answerCount < 3) textPerfect.Setup(1);
+                    PlayScreen.Instance.OnPerfect();
+                    NextNode();
+                }
+            }
+            else
+            {
+                StartCoroutine(IncorectArrow());
+            }
+        } else
+        {
+            if (answerCount == 0) textPerfect.Setup(0);
+            else if (answerCount > 0 && answerCount < 3) textPerfect.Setup(1);
+            PlayScreen.Instance.OnPerfect();
+            NextNode();
+        }
+       
+    }
+    void OnTouchUp()
+    {
+        //  isMouseDown = false;
+        // objTut.SetActive(true);
+        //Context.selectedButton = -1;
+        for (int i = 0; i < lsButton.Length; i++)
+            lsButton[i].AnimationState.SetAnimation(0, "idle", false);
+    }
+
+    public void NextNode()
+    {
+        answerCount = 0;
+        OnActiveTarget(false);
+        OnTouchUp();
+        PlayScreen.Instance.CloseCountDown();
+        idxOfNode++;
+        PlayScreen.Instance.UpdateProgress(idxOfNode * 1f / level.numOfNodes);
+        idxOfArrow = 0;
+        idxOfAnswer = 0;
+        currentState = STATE.ASK_STATE;
+    }
+    IEnumerator IncorectArrow()
+    {
+        blockInput = true;
+        OnTouchUp();
+        PlayScreen.Instance.CloseCountDown();
+        PlayScreen.Instance.IncorectAnswer();
+        Instantiate(incorect, transform.position + Vector3.up, Quaternion.identity);
+        yield return Yielders.Get(1);
+        PlayScreen.Instance.ShowCountDown(10f);
+        blockInput = false;
+        answerPool.ClearAnswer();
+        idxOfAnswer = 0;
+        if (answerCount < 3) answerCount++;
+    }
+    IEnumerator OverTime()
+    {
+        blockInput = true;
+        isOverTime = true;
+        OnTouchUp();
+        Instantiate(incorect, transform.position + Vector3.up, Quaternion.identity);
+        yield return Yielders.Get(1);
+        PlayScreen.Instance.ShowCountDown(10f);
+        blockInput = false;
+        isOverTime = false;
+        answerPool.ClearAnswer();
+        idxOfAnswer = 0;
+        if (answerCount < 3) answerCount++;
+    }
+    public void OnEnd(bool isPause)
+    {
+        enable = false;
+        if (!isPause)
+            AudioManager.Instance.StopGame();
+        else
+            AudioManager.Instance.PauseGame();
+        OnActiveTarget(false);
+    }
+    public void OnWinGame()
+    {
+        OnEnd(false);
+        PlayScreen.Instance.OnWin();
+    }
+}

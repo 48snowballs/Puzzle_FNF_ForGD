@@ -1,0 +1,111 @@
+
+Woman.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+access
+  rotate: false
+  xy: 951, 805
+  size: 47, 84
+  orig: 47, 84
+  offset: 0, 0
+  index: -1
+arm_L
+  rotate: true
+  xy: 608, 38
+  size: 223, 199
+  orig: 223, 199
+  offset: 0, 0
+  index: -1
+arm_L2
+  rotate: false
+  xy: 608, 263
+  size: 366, 219
+  orig: 366, 219
+  offset: 0, 0
+  index: -1
+arm_R
+  rotate: false
+  xy: 2, 91
+  size: 169, 391
+  orig: 169, 391
+  offset: 0, 0
+  index: -1
+arm_R2
+  rotate: false
+  xy: 809, 41
+  size: 152, 220
+  orig: 152, 220
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: true
+  xy: 922, 601
+  size: 125, 91
+  orig: 125, 91
+  offset: 0, 0
+  index: -1
+hair_02
+  rotate: false
+  xy: 2, 582
+  size: 524, 436
+  orig: 524, 436
+  offset: 0, 0
+  index: -1
+hand_L
+  rotate: false
+  xy: 922, 490
+  size: 83, 109
+  orig: 83, 109
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 173, 344
+  size: 236, 300
+  orig: 236, 300
+  offset: 0, 0
+  index: -1
+leg_R
+  rotate: true
+  xy: 528, 732
+  size: 286, 421
+  orig: 286, 421
+  offset: 0, 0
+  index: -1
+lrg_L
+  rotate: false
+  xy: 475, 91
+  size: 131, 391
+  orig: 131, 391
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: true
+  xy: 951, 728
+  size: 75, 45
+  orig: 75, 45
+  offset: 0, 0
+  index: -1
+mouth2
+  rotate: false
+  xy: 951, 891
+  size: 66, 63
+  orig: 66, 63
+  offset: 0, 0
+  index: -1
+mouth3
+  rotate: false
+  xy: 951, 956
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+torso
+  rotate: true
+  xy: 528, 484
+  size: 246, 392
+  orig: 246, 392
+  offset: 0, 0
+  index: -1
