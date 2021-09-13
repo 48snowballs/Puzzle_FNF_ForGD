@@ -33,7 +33,7 @@ public class Arrow : MonoBehaviour
     {
         if (active)
             trans.Translate(0, currentSpeed * Time.deltaTime, 0);
-        if (trans.position.y < 0 && active)
+        if (trans.position.y > 0 && active)
         {
             if (frist)
             {
@@ -41,12 +41,10 @@ public class Arrow : MonoBehaviour
                 PlayScreen.Instance.OnEnemyHit(type);
             } else
             {
-                if (trans.position.y < -3.5f)
+                if (trans.position.y > 3.5f)
                 {
                     active = false;
-                    //isBonusScore = false;
                     SimplePool.Despawn(gameObject);
-                    //controller.RemoveObjectMove(this);
                 }
             }          
         }

@@ -21,27 +21,27 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  level: 0
-  song: 0
+  level: 1
+  song: 2
   numOfNodes: 5
   speed: 1
-  avatar: 0
+  avatar: 2
   timeStart: 0
-  gold: 100
+  gold: 150
   nodes:
+  - numOfNode: 4
+    arrows: 03000000030000000000000000000000
+    time: 1.5
   - numOfNode: 5
-    arrows: 0300000000000000020000000300000001000000
+    arrows: 0300000002000000010000000000000002000000
     time: 2
   - numOfNode: 4
-    arrows: 03000000020000000100000002000000
+    arrows: 01000000000000000100000001000000
+    time: 1.5
+  - numOfNode: 4
+    arrows: 00000000010000000100000003000000
     time: 1.5
   - numOfNode: 5
-    arrows: 0000000003000000010000000200000003000000
-    time: 1.5
-  - numOfNode: 6
-    arrows: 020000000300000000000000010000000200000002000000
-    time: 2.5
-  - numOfNode: 3
-    arrows: 030000000000000003000000
-    time: 1
+    arrows: 0000000001000000020000000300000001000000
+    time: 2
   pathData: Assets/Resources/Data

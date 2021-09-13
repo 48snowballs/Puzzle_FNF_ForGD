@@ -10,11 +10,13 @@ public class LevelDesign : SerializedScriptableObject
 {
     public enum SONG
     {
+        None,
         Bopeebo,
         Fresh
     }
     public enum AVATAR
     {
+        None,
         Pico,
         Man,
         Woman
@@ -67,5 +69,16 @@ public class LevelDesign : SerializedScriptableObject
         string js = JsonConvert.SerializeObject(levelData);
         File.WriteAllText(pathData + "/level_" + level + ".json", js);
     }
-
+    [Button]
+    public void Clear()
+    {
+        level = 0;
+        song = SONG.None;
+        numOfNodes = 0;
+        speed = 1;
+        avatar = AVATAR.None;
+        timeStart = 0;
+        gold = 0;
+        nodes.Clear();
+    }
 }

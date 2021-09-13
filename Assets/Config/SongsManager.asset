@@ -37,7 +37,7 @@ MonoBehaviour:
       time: 1.5
     - numOfNode: 6
       arrows: 020000000300000000000000010000000200000002000000
-      time: 2
+      time: 2.5
     - numOfNode: 3
       arrows: 030000000000000003000000
       time: 1
@@ -45,6 +45,29 @@ MonoBehaviour:
     avatar: 2
     timeStart: 0
     gold: 100
+  - level: 1
+    song: Fresh
+    numOfNodes: 5
+    nodes:
+    - numOfNode: 4
+      arrows: 03000000030000000000000000000000
+      time: 1.5
+    - numOfNode: 5
+      arrows: 0300000002000000010000000000000002000000
+      time: 2
+    - numOfNode: 4
+      arrows: 01000000000000000100000001000000
+      time: 1.5
+    - numOfNode: 4
+      arrows: 00000000010000000100000003000000
+      time: 1.5
+    - numOfNode: 5
+      arrows: 0000000001000000020000000300000001000000
+      time: 2
+    speed: 1
+    avatar: 3
+    timeStart: 0
+    gold: 150
   songAudio:
   - song: Bopeebo
     clipSong: {fileID: 8300000, guid: 1d6fb9f8541874a4fb18b6b93b62a875, type: 3}

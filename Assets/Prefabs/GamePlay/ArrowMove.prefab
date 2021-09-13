@@ -50,7 +50,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 52e17b55ec9ec9946af38013ca840ee4, type: 3}
   - {fileID: 21300000, guid: 13072f2ab4d4b3f4394260ccc8d72fb7, type: 3}
   img: {fileID: 6996745081821941164}
-  speedMoveDefault: -4
+  speedMoveDefault: 4
   type: 0
   trans: {fileID: 6996745080341534833}
 --- !u!1 &6996745081821941166

@@ -41,7 +41,7 @@ public class PlayScreen : UIPanel
     }
     void Init(bool isReload = true)
     { 
-        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level);
+        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%2);
         if (level.avatar == 2)
         {
             isUseEnemy1 = true;
@@ -159,5 +159,11 @@ public class PlayScreen : UIPanel
         {
             WinScreen.Show(level.gold);
         }
+    }
+    public void ButtonPause()
+    {
+        AudioManager.Instance.PauseGame();
+        PopupPause.Show();
+        EvenGlobalManager.Instance.OnActiveTarget.Dispatch(false);
     }
 }

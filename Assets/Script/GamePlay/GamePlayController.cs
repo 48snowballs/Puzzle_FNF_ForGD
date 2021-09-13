@@ -21,7 +21,7 @@ public class GamePlayController : MonoBehaviour
     private STATE currentState;
     private int answerCount;
     private ObjectPerfect textPerfect;
-    private Vector2[] posStart = new Vector2[] { new Vector2(-2.1f, 5f), new Vector2(-0.7f, 5f), new Vector2(0.7f, 5f), new Vector2(2.1f, 5f) };
+    private Vector2[] posStart = new Vector2[] { new Vector2(-2.1f, -3.5f), new Vector2(-0.7f, -3.5f), new Vector2(0.7f, -3.5f), new Vector2(2.1f, -3.5f) };
 
     private Level level;
 
@@ -43,10 +43,11 @@ public class GamePlayController : MonoBehaviour
     {
         EvenGlobalManager.Instance.OnStartPlay.AddListener(OnStart);
         EvenGlobalManager.Instance.OnEndPlay.AddListener(OnEnd);
+        EvenGlobalManager.Instance.OnActiveTarget.AddListener(OnActiveTarget);
     }
     public void OnStart()
     {
-        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level);
+        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%2);
         currentState = STATE.ASK_STATE;
         if (textPerfect == null)
             textPerfect = SimplePool.Spawn(objStatePrefab, new Vector3(0, 3), Quaternion.identity, false);
@@ -134,6 +135,7 @@ public class GamePlayController : MonoBehaviour
     {
         isSpawn = true;
         blockInput = true;
+        groupTap.SetActive(true);
         float delay = level.nodes[idxOfNode].time / level.nodes[idxOfNode].numOfNode;
         yield return Yielders.Get(1);
         while (idxOfArrow < level.nodes[idxOfNode].numOfNode)
@@ -144,6 +146,10 @@ public class GamePlayController : MonoBehaviour
             var obj = SimplePool.Spawn(prefab);
             obj.transform.position = posStart[type];
             obj.Init(type, level.speed);
+
+            yield return Yielders.Get(0.2f);
+            lsButton[type].AnimationState.SetAnimation(0, "action", true);
+            lsButton[type].AnimationState.AddAnimation(0, "idle", false, 0);
             //listArrow.Add(obj);
             //if (lsEffectObjectMoveDown[type].AnimationName != "idle" || lsEffectObjectMoveDown[type].AnimationName != "in")
             //{
@@ -154,7 +160,7 @@ public class GamePlayController : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
         // idxOfNode++;
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.6f - (level.speed-1f));
         isSpawn = false;
         blockInput = false;
         currentState = STATE.ANSWER_STATE;
@@ -163,7 +169,7 @@ public class GamePlayController : MonoBehaviour
     }
     void OnActiveTarget(bool isActive)
     {
-        groupTap.SetActive(isActive);
+        //groupTap.SetActive(isActive);
         answerPool.gameObject.SetActive(isActive);
         //objTarget.SetActive(isActive);
         //skeEffectScore.gameObject.SetActive(isActive);
@@ -179,7 +185,7 @@ public class GamePlayController : MonoBehaviour
         //objTut.SetActive(false);
 
         lsButton[type].AnimationState.SetAnimation(0, "action", true);
-        //lsButton[typ].AnimationState.AddAnimation(0, "idle", false, 0);
+        lsButton[type].AnimationState.AddAnimation(0, "idle", false, 0);
         PlayScreen.Instance.OnTapButtonDown(type);
         // Context.selectedButton = type;
 
@@ -222,6 +228,7 @@ public class GamePlayController : MonoBehaviour
     public void NextNode()
     {
         answerCount = 0;
+        groupTap.SetActive(false);
         OnActiveTarget(false);
         OnTouchUp();
         PlayScreen.Instance.CloseCountDown();
@@ -266,6 +273,7 @@ public class GamePlayController : MonoBehaviour
             AudioManager.Instance.StopGame();
         else
             AudioManager.Instance.PauseGame();
+        groupTap.SetActive(false);
         OnActiveTarget(false);
     }
     public void OnWinGame()
