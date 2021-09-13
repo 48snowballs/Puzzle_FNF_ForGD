@@ -12,7 +12,7 @@ public class EvenGlobalManager : Singleton<EvenGlobalManager>
     public Relay OnStartPlay = new Relay();
     public Relay<bool> OnEndPlay = new Relay<bool>();
 
-    //public Relay<bool> OnActiveTarget = new Relay<bool>();
+    public Relay<bool> OnActiveTarget = new Relay<bool>();
 
     //public Relay OnActiveEffectScore = new Relay();
 
