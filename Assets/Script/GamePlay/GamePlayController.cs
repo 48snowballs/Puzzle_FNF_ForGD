@@ -20,6 +20,7 @@ public class GamePlayController : MonoBehaviour
     private int idxOfAnswer;
     private STATE currentState;
     private int answerCount;
+    private bool canSpawn;
     private ObjectPerfect textPerfect;
     private Vector2[] posStart = new Vector2[] { new Vector2(-2.1f, -3.5f), new Vector2(-0.7f, -3.5f), new Vector2(0.7f, -3.5f), new Vector2(2.1f, -3.5f) };
 
@@ -44,6 +45,7 @@ public class GamePlayController : MonoBehaviour
         EvenGlobalManager.Instance.OnStartPlay.AddListener(OnStart);
         EvenGlobalManager.Instance.OnEndPlay.AddListener(OnEnd);
         EvenGlobalManager.Instance.OnActiveTarget.AddListener(OnActiveTarget);
+        EvenGlobalManager.Instance.OnArrowDisappear.AddListener(OnArrowDisappear);
     }
     public void OnStart()
     {
@@ -58,6 +60,7 @@ public class GamePlayController : MonoBehaviour
 
         enable = true;
         blockInput = false;
+        canSpawn = true;
         idxOfNode = 0;
         idxOfArrow = 0;
         idxOfAnswer = 0;
@@ -135,7 +138,7 @@ public class GamePlayController : MonoBehaviour
     {
         isSpawn = true;
         blockInput = true;
-        groupTap.SetActive(true);
+        OnActiveTarget(true);
         float delay = level.nodes[idxOfNode].time / level.nodes[idxOfNode].numOfNode;
         yield return Yielders.Get(1);
         while (idxOfArrow < level.nodes[idxOfNode].numOfNode)
@@ -146,6 +149,7 @@ public class GamePlayController : MonoBehaviour
             var obj = SimplePool.Spawn(prefab);
             obj.transform.position = posStart[type];
             obj.Init(type, level.speed);
+            canSpawn = false;
 
             yield return Yielders.Get(0.2f);
             lsButton[type].AnimationState.SetAnimation(0, "action", true);
@@ -157,27 +161,27 @@ public class GamePlayController : MonoBehaviour
             //    lsEffectObjectMoveDown[type].AnimationState.AddAnimation(0, "idle", true, 0);
             //}
             idxOfArrow++;
-            yield return new WaitForSeconds(delay);
+            yield return new WaitUntil(() => canSpawn == true);
         }
-        // idxOfNode++;
-        yield return new WaitForSeconds(1.6f - (level.speed-1f));
+        //yield return new WaitForSeconds(1.6f - (level.speed-1f));
         isSpawn = false;
         blockInput = false;
         currentState = STATE.ANSWER_STATE;
-        OnActiveTarget(true);
+        answerPool.gameObject.SetActive(true);
+        answerPool.CreateNewPool(level.nodes[idxOfNode].numOfNode);
+        PlayScreen.Instance.ShowCountDown(10f);
         yield return 0;
+    }
+    public void OnArrowDisappear()
+    {
+        canSpawn = true;
     }
     void OnActiveTarget(bool isActive)
     {
-        //groupTap.SetActive(isActive);
-        answerPool.gameObject.SetActive(isActive);
+        groupTap.SetActive(isActive);
+       
         //objTarget.SetActive(isActive);
         //skeEffectScore.gameObject.SetActive(isActive);
-        if (isActive)
-        { 
-            answerPool.CreateNewPool(level.nodes[idxOfNode].numOfNode);
-            PlayScreen.Instance.ShowCountDown(10f);
-        }
             //objTarget.transform.position = new Vector3(0, -3.5f);
     }
     void OnTouchDown(int type)
@@ -218,9 +222,7 @@ public class GamePlayController : MonoBehaviour
     }
     void OnTouchUp()
     {
-        //  isMouseDown = false;
         // objTut.SetActive(true);
-        //Context.selectedButton = -1;
         for (int i = 0; i < lsButton.Length; i++)
             lsButton[i].AnimationState.SetAnimation(0, "idle", false);
     }
@@ -228,8 +230,7 @@ public class GamePlayController : MonoBehaviour
     public void NextNode()
     {
         answerCount = 0;
-        groupTap.SetActive(false);
-        OnActiveTarget(false);
+        answerPool.gameObject.SetActive(false);
         OnTouchUp();
         PlayScreen.Instance.CloseCountDown();
         idxOfNode++;
@@ -273,7 +274,7 @@ public class GamePlayController : MonoBehaviour
             AudioManager.Instance.StopGame();
         else
             AudioManager.Instance.PauseGame();
-        groupTap.SetActive(false);
+        answerPool.gameObject.SetActive(false);
         OnActiveTarget(false);
     }
     public void OnWinGame()

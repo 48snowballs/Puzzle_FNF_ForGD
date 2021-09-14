@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     public SkeletonDataAsset[] character;
     public Sprite[] characterImg;
+
     // Start is called before the first frame update
     void Start()
     {

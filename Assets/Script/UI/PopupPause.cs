@@ -24,6 +24,7 @@ public class PopupPause : UIPanel
     public void ButtonResume()
     {
         AudioManager.Instance.ResumeGame();
+        Time.timeScale = 1;
         Close();
         EvenGlobalManager.Instance.OnActiveTarget.Dispatch(true);
     }
