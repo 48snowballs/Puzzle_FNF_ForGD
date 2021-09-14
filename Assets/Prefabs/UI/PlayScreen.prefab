@@ -1130,12 +1130,12 @@ MonoBehaviour:
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
-  startingAnimation: 
+  startingAnimation: idle
   startingLoop: 0
   timeScale: 1
   freeze: 0
   updateWhenInvisible: 3
-  unscaledTime: 0
+  unscaledTime: 1
   allowMultipleCanvasRenderers: 0
   canvasRenderers: []
   separatorSlotNames: []
@@ -1557,12 +1557,12 @@ MonoBehaviour:
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
-  startingAnimation: 
+  startingAnimation: idle
   startingLoop: 0
   timeScale: 1
   freeze: 0
   updateWhenInvisible: 3
-  unscaledTime: 0
+  unscaledTime: 1
   allowMultipleCanvasRenderers: 0
   canvasRenderers: []
   separatorSlotNames: []

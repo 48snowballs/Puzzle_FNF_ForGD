@@ -163,6 +163,7 @@ public class PlayScreen : UIPanel
     public void ButtonPause()
     {
         AudioManager.Instance.PauseGame();
+        Time.timeScale = 0;
         PopupPause.Show();
         EvenGlobalManager.Instance.OnActiveTarget.Dispatch(false);
     }

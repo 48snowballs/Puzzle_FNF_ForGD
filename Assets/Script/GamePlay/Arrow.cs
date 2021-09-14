@@ -41,10 +41,11 @@ public class Arrow : MonoBehaviour
                 PlayScreen.Instance.OnEnemyHit(type);
             } else
             {
-                if (trans.position.y > 3.5f)
+                if (trans.position.y > 2f)
                 {
                     active = false;
                     SimplePool.Despawn(gameObject);
+                    EvenGlobalManager.Instance.OnArrowDisappear.Dispatch();
                 }
             }          
         }
