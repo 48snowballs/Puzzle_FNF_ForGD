@@ -25,10 +25,13 @@ public class MainScreen : UIPanel
             return;
 
         base.OnAppear();
+
         coinText.text = GameManager.Instance.Data.Gold.ToString();
+        AudioManager.Instance.PlayBackgroundMusic();
     }
     public void ButtonPlay()
     {
+        AudioManager.Instance.StopBackgroundMusic();
         PlayScreen.Show();
         EvenGlobalManager.Instance.OnStartPlay.Dispatch();
     }

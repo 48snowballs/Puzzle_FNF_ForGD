@@ -1,1 +1,1 @@
-{"level":{"level":0,"song":"Bopeebo","numOfNodes":5,"nodes":[{"numOfNode":5,"arrows":[3,0,2,3,1],"time":2.0},{"numOfNode":4,"arrows":[3,2,1,2],"time":1.5},{"numOfNode":5,"arrows":[0,3,1,2,3],"time":1.5},{"numOfNode":6,"arrows":[2,3,0,1,2,2],"time":2.5},{"numOfNode":3,"arrows":[3,0,3],"time":1.0}],"speed":1.0,"avatar":2,"timeStart":0.0,"gold":100}}
+{"level":{"level":0,"song":"Bopeebo","numOfNodes":1,"nodes":[{"numOfNode":1,"arrows":[1],"time":3.0}],"speed":1.0,"avatar":2,"timeStart":0.0,"gold":100}}
