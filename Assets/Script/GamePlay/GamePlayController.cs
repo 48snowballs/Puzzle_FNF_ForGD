@@ -26,9 +26,10 @@ public class GamePlayController : MonoBehaviour
 
     private Level level;
 
-    //private List<Arrow> listArrow = new List<Arrow>();
-    private bool isSpawn = false;
+    private List<Arrow> listArrow = new List<Arrow>();
+    private bool isSpawn;
     private bool isOverTime = false;
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -44,12 +45,13 @@ public class GamePlayController : MonoBehaviour
     {
         EvenGlobalManager.Instance.OnStartPlay.AddListener(OnStart);
         EvenGlobalManager.Instance.OnEndPlay.AddListener(OnEnd);
+        EvenGlobalManager.Instance.OnContinue.AddListener(OnContinue);
         EvenGlobalManager.Instance.OnActiveTarget.AddListener(OnActiveTarget);
         EvenGlobalManager.Instance.OnArrowDisappear.AddListener(OnArrowDisappear);
     }
     public void OnStart()
     {
-        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%2);
+        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%8);
         currentState = STATE.ASK_STATE;
         if (textPerfect == null)
             textPerfect = SimplePool.Spawn(objStatePrefab, new Vector3(0, 3), Quaternion.identity, false);
@@ -58,14 +60,30 @@ public class GamePlayController : MonoBehaviour
             lsButton[i].AnimationState.SetAnimation(0, "idle", false);
         AudioManager.Instance.PlayGame(GameManager.Instance.songManager.GetSongClip(level.song).clipSong,0);
 
+        isSpawn = false;
         enable = true;
         blockInput = false;
         canSpawn = true;
         idxOfNode = 0;
+        PlayScreen.Instance.UpdateProgress(idxOfNode * 1f / level.numOfNodes);
         idxOfArrow = 0;
         idxOfAnswer = 0;
         answerCount = 0;
-}
+        listArrow = new List<Arrow>();
+    }
+    public void OnContinue()
+    {
+        currentState = STATE.ASK_STATE;
+        enable = true;
+        blockInput = false;
+        canSpawn = true;
+        idxOfArrow = 0;
+        idxOfAnswer = 0;
+        answerCount = 0;
+        listArrow = new List<Arrow>();
+        AudioManager.Instance.ResumeGame();
+        OnActiveTarget(true);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -149,6 +167,7 @@ public class GamePlayController : MonoBehaviour
             var obj = SimplePool.Spawn(prefab);
             obj.transform.position = posStart[type];
             obj.Init(type, level.speed);
+            listArrow.Add(obj);
             canSpawn = false;
 
             yield return Yielders.Get(0.2f);
@@ -169,12 +188,13 @@ public class GamePlayController : MonoBehaviour
         currentState = STATE.ANSWER_STATE;
         answerPool.gameObject.SetActive(true);
         answerPool.CreateNewPool(level.nodes[idxOfNode].numOfNode);
-        PlayScreen.Instance.ShowCountDown(10f);
+        PlayScreen.Instance.ShowCountDown(level.nodes[idxOfNode].time);
         yield return 0;
     }
-    public void OnArrowDisappear()
+    public void OnArrowDisappear(Arrow obj)
     {
         canSpawn = true;
+        listArrow.Remove(obj);
     }
     void OnActiveTarget(bool isActive)
     {
@@ -247,7 +267,7 @@ public class GamePlayController : MonoBehaviour
         PlayScreen.Instance.IncorectAnswer();
         Instantiate(incorect, transform.position + Vector3.up, Quaternion.identity);
         yield return Yielders.Get(1);
-        PlayScreen.Instance.ShowCountDown(10f);
+        PlayScreen.Instance.ShowCountDown(level.nodes[idxOfNode].time);
         blockInput = false;
         answerPool.ClearAnswer();
         idxOfAnswer = 0;
@@ -260,7 +280,7 @@ public class GamePlayController : MonoBehaviour
         OnTouchUp();
         Instantiate(incorect, transform.position + Vector3.up, Quaternion.identity);
         yield return Yielders.Get(1);
-        PlayScreen.Instance.ShowCountDown(10f);
+        PlayScreen.Instance.ShowCountDown(level.nodes[idxOfNode].time);
         blockInput = false;
         isOverTime = false;
         answerPool.ClearAnswer();
@@ -270,8 +290,17 @@ public class GamePlayController : MonoBehaviour
     public void OnEnd(bool isPause)
     {
         enable = false;
+
         if (!isPause)
+        {
+            for (int i = 0; i < listArrow.Count; i++)
+            {
+                SimplePool.Despawn(listArrow[i].gameObject);
+            }
+            listArrow.Clear();
+            StopAllCoroutines();
             AudioManager.Instance.StopGame();
+        }
         else
             AudioManager.Instance.PauseGame();
         answerPool.gameObject.SetActive(false);

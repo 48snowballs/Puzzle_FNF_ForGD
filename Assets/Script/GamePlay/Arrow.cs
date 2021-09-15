@@ -44,8 +44,8 @@ public class Arrow : MonoBehaviour
                 if (trans.position.y > 2f)
                 {
                     active = false;
+                    EvenGlobalManager.Instance.OnArrowDisappear.Dispatch(this);
                     SimplePool.Despawn(gameObject);
-                    EvenGlobalManager.Instance.OnArrowDisappear.Dispatch();
                 }
             }          
         }

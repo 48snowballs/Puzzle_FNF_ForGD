@@ -16,9 +16,9 @@ public class EvenGlobalManager : Singleton<EvenGlobalManager>
 
     //public Relay OnActiveEffectScore = new Relay();
 
-    //public Relay OnContinue = new Relay();
+    public Relay OnContinue = new Relay();
 
     //public Relay<int> OnStartEffectBonus = new Relay<int>();
     //public Relay OnEndEffectBonus = new Relay();
-    public Relay OnArrowDisappear = new Relay();
+    public Relay<Arrow> OnArrowDisappear = new Relay<Arrow>();
 }

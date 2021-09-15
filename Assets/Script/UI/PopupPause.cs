@@ -28,4 +28,20 @@ public class PopupPause : UIPanel
         Close();
         EvenGlobalManager.Instance.OnActiveTarget.Dispatch(true);
     }
+    public void ButtonRestart()
+    {
+        AudioManager.Instance.StopGame();
+        Time.timeScale = 1;
+        Close();
+        EvenGlobalManager.Instance.OnEndPlay.Dispatch(false);
+        EvenGlobalManager.Instance.OnStartPlay.Dispatch();
+        PlayScreen.Show();
+    }
+    public void ButtonMainMenu()
+    {
+        Time.timeScale = 1;
+        Close();
+        EvenGlobalManager.Instance.OnEndPlay.Dispatch(false);
+        MainScreen.Show();
+    }
 }

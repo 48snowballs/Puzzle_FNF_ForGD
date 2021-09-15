@@ -28,4 +28,15 @@ public class LoseScreen : UIPanel
     {
         MainScreen.Show();
     }
+    public void ButtonReplay()
+    {
+        PlayScreen.Show();
+        AudioManager.Instance.StopGame();
+        EvenGlobalManager.Instance.OnStartPlay.Dispatch();
+    }
+    public void ButtonContinue()
+    {
+        PlayScreen.Show(false);
+        EvenGlobalManager.Instance.OnContinue.Dispatch();
+    }
 }

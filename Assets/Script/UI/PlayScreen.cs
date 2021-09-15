@@ -41,7 +41,7 @@ public class PlayScreen : UIPanel
     }
     void Init(bool isReload = true)
     { 
-        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%2);
+        level = GameManager.Instance.songManager.GetLevelData(GameManager.Instance.Data.Level%8);
         if (level.avatar == 2)
         {
             isUseEnemy1 = true;
