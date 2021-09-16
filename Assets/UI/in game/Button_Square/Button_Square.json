@@ -51,10 +51,10 @@
 			"Button_White": {
 				"Button_White": {
 					"name": "Button_White4",
-					"path": "Button_White",
+					"path": "Button_Blue",
 					"x": -8.16,
 					"y": 0.14,
-					"rotation": 90,
+					"rotation": -90,
 					"width": 124,
 					"height": 130
 				}
@@ -79,10 +79,10 @@
 			"Button_White": {
 				"Button_White": {
 					"name": "Button_White3",
-					"path": "Button_White",
+					"path": "Button_Green",
 					"x": -8.16,
 					"y": 0.14,
-					"rotation": -90,
+					"rotation": 90,
 					"width": 124,
 					"height": 130
 				}
@@ -105,7 +105,7 @@
 				}
 			},
 			"Button_White": {
-				"Button_White": { "name": "Button_White2", "path": "Button_White", "x": -8.16, "y": 0.14, "width": 124, "height": 130 }
+				"Button_White": { "name": "Button_White2", "path": "Button_Red", "x": -8.16, "y": 0.14, "width": 124, "height": 130,"rotation": 180 }
 			}
 		}
 	},
@@ -124,7 +124,7 @@
 				}
 			},
 			"Button_White": {
-				"Button_White": { "x": -8.16, "y": 0.14, "rotation": 180, "width": 124, "height": 130 }
+				"Button_White": {"name": "Button_White1", "path": "Button_Yellow", "x": -8.16, "y": 0.14, "width": 124, "height": 130 }
 			}
 		}
 	}

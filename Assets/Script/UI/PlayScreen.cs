@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Spine.Unity;
+using TMPro;
+using DG.Tweening;
 public class PlayScreen : UIPanel
 {
     public CountdownTimer countdownTimer;
+    public TMP_Text watchArrowTxt;
+    public TMP_Text repeatTxt;
     public SkeletonGraphic skePlayer;
     public SkeletonGraphic skeEnemy1;
     public SkeletonGraphic skeEnemy2;
@@ -66,12 +70,13 @@ public class PlayScreen : UIPanel
             progressImg.fillAmount = 0;
         }
 
-        idxOfHeart = 5;
+        idxOfHeart = 6;
         for (int i = 0; i < listHeart.Count; i++)
             listHeart[i].SetActive(true);
 
         isLose = false;
         CloseCountDown();
+        repeatTxt.gameObject.SetActive(false);
     }
     public void ShowCountDown(float s)
     {
@@ -80,6 +85,36 @@ public class PlayScreen : UIPanel
     public void CloseCountDown()
     {
         countdownTimer.StopCountDown();
+    }
+    public void SetActiveWatchArrowText(bool active)
+    {
+        if (active)
+        {
+            watchArrowTxt.gameObject.SetActive(true);
+            watchArrowTxt.DOPause();
+            watchArrowTxt.color = new Color(1, 1, 1, 0);
+            watchArrowTxt.DOColor(new Color(1, 1, 1, 1), 0.5f).SetDelay(1f);
+        }
+        else
+        {
+            watchArrowTxt.DOPause();
+            watchArrowTxt.DOColor(new Color(1, 1, 1, 0), 0.2f);
+        }
+    }
+    public void SetActiveRepeatText(bool active)
+    {
+        if (active)
+        {
+            repeatTxt.gameObject.SetActive(true);
+            repeatTxt.DOPause();
+            repeatTxt.color = new Color(1, 1, 1, 0);
+            repeatTxt.DOColor(new Color(1, 1, 1, 1), 0.5f);
+        }
+        else
+        {
+            repeatTxt.DOPause();
+            repeatTxt.DOColor(new Color(1, 1, 1, 0), 0.2f);
+        }
     }
     public void OnTapButtonDown(int anim)
     {
@@ -115,6 +150,14 @@ public class PlayScreen : UIPanel
             isLose = true;
             Invoke(nameof(ShowLoseScreen),1f);
             EvenGlobalManager.Instance.OnEndPlay.Dispatch(true);
+        }
+    }
+    public void DoubleCorectAnswer()
+    {
+        if (idxOfHeart < 6)
+        {
+            listHeart[idxOfHeart].SetActive(true);
+            idxOfHeart++;
         }
     }
     public void ShowLoseScreen()

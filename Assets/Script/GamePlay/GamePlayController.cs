@@ -29,6 +29,7 @@ public class GamePlayController : MonoBehaviour
     private List<Arrow> listArrow = new List<Arrow>();
     private bool isSpawn;
     private bool isOverTime = false;
+    private int move;
 
     private void Awake()
     {
@@ -58,6 +59,7 @@ public class GamePlayController : MonoBehaviour
         textPerfect.gameObject.SetActive(false);
         for (int i = 0; i < lsButton.Length; i++)
             lsButton[i].AnimationState.SetAnimation(0, "idle", false);
+        
         AudioManager.Instance.PlayGame(GameManager.Instance.songManager.GetSongClip(level.song).clipSong,0);
 
         isSpawn = false;
@@ -70,6 +72,7 @@ public class GamePlayController : MonoBehaviour
         idxOfAnswer = 0;
         answerCount = 0;
         listArrow = new List<Arrow>();
+        move = 0;
     }
     public void OnContinue()
     {
@@ -81,6 +84,7 @@ public class GamePlayController : MonoBehaviour
         idxOfAnswer = 0;
         answerCount = 0;
         listArrow = new List<Arrow>();
+        move = 0;
         AudioManager.Instance.ResumeGame();
         OnActiveTarget(true);
     }
@@ -157,6 +161,7 @@ public class GamePlayController : MonoBehaviour
         isSpawn = true;
         blockInput = true;
         OnActiveTarget(true);
+        PlayScreen.Instance.SetActiveWatchArrowText(true);
         float delay = level.nodes[idxOfNode].time / level.nodes[idxOfNode].numOfNode;
         yield return Yielders.Get(1);
         while (idxOfArrow < level.nodes[idxOfNode].numOfNode)
@@ -188,13 +193,22 @@ public class GamePlayController : MonoBehaviour
         currentState = STATE.ANSWER_STATE;
         answerPool.gameObject.SetActive(true);
         answerPool.CreateNewPool(level.nodes[idxOfNode].numOfNode);
+        PlayScreen.Instance.SetActiveWatchArrowText(false);
         PlayScreen.Instance.ShowCountDown(level.nodes[idxOfNode].time);
+        PlayScreen.Instance.SetActiveRepeatText(true);
         yield return 0;
     }
     public void OnArrowDisappear(Arrow obj)
     {
+        StartCoroutine(ArrowDisappear(obj));
+    }
+    IEnumerator ArrowDisappear(Arrow obj)
+    {
+        yield return Yielders.Get(0.2f);
+        obj.SetActive(false);
         canSpawn = true;
         listArrow.Remove(obj);
+        SimplePool.Despawn(obj.gameObject);
     }
     void OnActiveTarget(bool isActive)
     {
@@ -221,10 +235,7 @@ public class GamePlayController : MonoBehaviour
                 idxOfAnswer++;
                 if (idxOfAnswer == level.nodes[idxOfNode].numOfNode)
                 {
-                    if (answerCount == 0) textPerfect.Setup(0);
-                    else if (answerCount > 0 && answerCount < 3) textPerfect.Setup(1);
-                    PlayScreen.Instance.OnPerfect();
-                    NextNode();
+                    StartCoroutine(CorrectAnswer());
                 }
             }
             else
@@ -253,6 +264,7 @@ public class GamePlayController : MonoBehaviour
         answerPool.gameObject.SetActive(false);
         OnTouchUp();
         PlayScreen.Instance.CloseCountDown();
+        PlayScreen.Instance.SetActiveRepeatText(false);
         idxOfNode++;
         PlayScreen.Instance.UpdateProgress(idxOfNode * 1f / level.numOfNodes);
         idxOfArrow = 0;
@@ -262,6 +274,8 @@ public class GamePlayController : MonoBehaviour
     IEnumerator IncorectArrow()
     {
         blockInput = true;
+        move--;
+        if (move < 0) move = 0;
         OnTouchUp();
         PlayScreen.Instance.CloseCountDown();
         PlayScreen.Instance.IncorectAnswer();
@@ -272,11 +286,29 @@ public class GamePlayController : MonoBehaviour
         answerPool.ClearAnswer();
         idxOfAnswer = 0;
         if (answerCount < 3) answerCount++;
+        yield return 0;
+    }
+    IEnumerator CorrectAnswer()
+    {
+        yield return Yielders.Get(0.4f);
+        move++;
+        if (move > 1)
+        {
+            PlayScreen.Instance.DoubleCorectAnswer();
+            move = 0;
+        }
+        if (answerCount == 0) textPerfect.Setup(0);
+        else if (answerCount > 0 && answerCount < 3) textPerfect.Setup(1);
+        PlayScreen.Instance.OnPerfect();
+        NextNode();
+        yield return 0;
     }
     IEnumerator OverTime()
     {
         blockInput = true;
         isOverTime = true;
+        move--;
+        if (move < 0) move = 0;
         OnTouchUp();
         Instantiate(incorect, transform.position + Vector3.up, Quaternion.identity);
         yield return Yielders.Get(1);
@@ -286,6 +318,7 @@ public class GamePlayController : MonoBehaviour
         answerPool.ClearAnswer();
         idxOfAnswer = 0;
         if (answerCount < 3) answerCount++;
+        yield return 0;
     }
     public void OnEnd(bool isPause)
     {
