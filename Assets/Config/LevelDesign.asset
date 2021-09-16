@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelDesign
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -21,21 +21,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  level: 7
-  song: 1
-  numOfNodes: 3
+  level: 9
+  song: 2
+  numOfNodes: 4
   speed: 1
-  avatar: 1
+  avatar: 2
   timeStart: 0
   gold: 200
   nodes:
-  - numOfNode: 8
-    arrows: 0300000003000000030000000100000003000000020000000300000002000000
+  - numOfNode: 3
+    arrows: 020000000300000000000000
+    time: 10
+  - numOfNode: 6
+    arrows: 010000000100000003000000010000000300000000000000
+    time: 10
+  - numOfNode: 4
+    arrows: 03000000010000000100000002000000
     time: 10
   - numOfNode: 8
-    arrows: 0100000002000000030000000200000002000000030000000000000002000000
-    time: 10
-  - numOfNode: 8
-    arrows: 0000000003000000010000000000000003000000020000000100000001000000
+    arrows: 0000000001000000000000000200000000000000030000000300000000000000
     time: 10
   pathData: Assets/Resources/Data

@@ -1,1 +1,1 @@
-{"level":{"level":1,"song":"Fresh","numOfNodes":1,"nodes":[{"numOfNode":2,"arrows":[0,2],"time":3.0}],"speed":1.0,"avatar":3,"timeStart":0.0,"gold":100}}
+{"level":{"level":1,"song":"Fresh","numOfNodes":5,"nodes":[{"numOfNode":2,"arrows":[1,0],"time":5.0},{"numOfNode":3,"arrows":[1,0,3],"time":10.0},{"numOfNode":4,"arrows":[1,0,1,3],"time":10.0},{"numOfNode":4,"arrows":[3,0,2,2],"time":10.0},{"numOfNode":5,"arrows":[0,3,0,1,2],"time":10.0}],"speed":1.0,"avatar":3,"timeStart":0.0,"gold":100}}
